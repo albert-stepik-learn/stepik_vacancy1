@@ -1,12 +1,12 @@
-# Stepik Tours: Project 2
+# Stepik Vacancies: Project 3
 
 This is a part of my learning at https://stepik.org/course/63298.
 
 The Django application presented here shows three types of pages:
 
-- ``main`` shows a list of departures and tours
-- ``departure`` shows a list of tours available from a particular city
--  ``tour`` presents a particular tour's details
+- ``main`` shows a list of vacancy specialities and companies supplying vacancies
+- ``companies`` and ``company`` present company related vacancy data
+-  ``speciality`` and ``specialities`` present groups of vacancies
 
 ## Prerequisites
 
@@ -16,11 +16,11 @@ The application requires Python 3.7 or a newer version.
 
 To use this application, go through the following steps:
 
-1. Download this repository and unpack it. This will create the ``stepik_tour2-main`` directory.
+1. Download this repository and unpack it. This will create the ``stepik_vacancy1-main`` directory.
 0. Go in this directory:
 
     ```bazaar
-    cd stepik_tour2-main
+    cd stepik_vacancy1-main
     ```
 
 0. Create a Python virtual environment:
@@ -50,8 +50,11 @@ To use this application, go through the following steps:
 0. Address your browser to the following URLs:
 
     -   http://localhost:8000/
-    -   http://localhost:8000/departure/nsk/
-    -   http://localhost:8000/tour/1/
+    -   http://localhost:8000/vacancies/
+    -   http://localhost:8000/vacancies/2/
+    -   http://localhost:8000/companies/
+    -   http://localhost:8000/companies/1/
+    -   http://localhost:8000/vacancies/cat/backend/
  
 ## Some Tips when Developing the Project
 =====================================
@@ -64,8 +67,38 @@ To watch a database content, I used the DBeaver client. On Mac, install it as fo
     % brew install --cask dbeaver-community
 ```
 
+### Using Static Content
 
+0. Put all your static files to ``<application>/static/<application>``. In this project, <application> is ``vacancy``.
+0. On top of the template, where you want to use static files, add just after ``{% extends... %}``:
 
+   ```bazaar
+   {%  load static %}
+   ```
+
+0. In the place of the template, where you want to use a static file, use the ``static`` tag as in the following
+   example:
+
+   ```bazaar   
+   <img class="mx-auto d-block mw-100" src="{% static 'vacancy/'|add:company.logo %}" alt="">
+   ```
+   
+### Counting related objects
+
+If you need to count related objects (one-to-many relationship), for example, a number of vacancies exposed
+by a company, use the ``related_name`` property as in the following example (related name is 'vacancies'):
+
+0. In the model class definition, add the ``related_name`` parameter to the foreign key that you are going to use:
+
+   ```bazaar   
+   company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='vacancies')
+   ```
+   
+0. In a template, use this property as in the following example that counts the number of vacancies published by a company:
+ 
+    ```bazaar
+     <p class="card-text"><a href="#">{{ company.vacancies.count }} вакансий</a></p>
+    ```
 
 That's it. See you in the next project.
 

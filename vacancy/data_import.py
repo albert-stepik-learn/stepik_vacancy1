@@ -1,7 +1,6 @@
 """Import data from data.py to ORM models
 """
 import os
-import json
 
 import django
 
@@ -10,8 +9,7 @@ django.setup()
 
 from vacancy.models import Vacancy, Company, Speciality
 from vacancy import data
-# with open('vacancy/data.py', 'r') as file:
-#     new_vacancy_data = json.loads(file.read())
+
 
 for company_data in data.companies:
     Company.objects.create(

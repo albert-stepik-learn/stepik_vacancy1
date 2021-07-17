@@ -5,22 +5,28 @@ from vacancy.models import Company,  Speciality, Vacancy
 
 
 def main_view(request):
+    # specialities = Speciality.objects.all()
+    # for speciality in specialities
+    # speciality_vacancies_totals = len(Speciality.vacancies.all())
     return render(
         request,
         'vacancy/index.html',
         context={
             'specialities': Speciality.objects.all(),
-            'companies': Company.objects.all()
+            'companies': Company.objects.all(),
         }
     )
 
 
 def vacancies_view(request):
+    vacancies = Vacancy.objects.all()
+    vacancies_total = len(vacancies)
     return render(
         request,
         'vacancy/vacancies.html',
         context={
-            'vacancies': Vacancy.objects.all()
+            'vacancies': vacancies,
+            'vacancies_total': vacancies_total,
         }
     )
 
@@ -60,6 +66,7 @@ def companies_view(request):
             'companies_total': companies_total,
         }
     )
+
 
 def company_view(request, company_id):
     return render(

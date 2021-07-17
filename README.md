@@ -57,7 +57,6 @@ To use this application, go through the following steps:
     -   http://localhost:8000/vacancies/cat/backend/
  
 ## Some Tips when Developing the Project
-=====================================
 
 ### DB Client
 
@@ -69,11 +68,12 @@ To watch a database content, I used the DBeaver client. On Mac, install it as fo
 
 ### Using Static Content
 
-0. Put all your static files to ``<application>/static/<application>``. In this project, <application> is ``vacancy``.
+0. Put all your static files to the ``<application>/static/<application>/`` folder. In this project, \<application\>
+   is "vacancy".
 0. On top of the template, where you want to use static files, add just after ``{% extends... %}``:
 
    ```bazaar
-   {%  load static %}
+   {% load static %}
    ```
 
 0. In the place of the template, where you want to use a static file, use the ``static`` tag as in the following
@@ -83,7 +83,7 @@ To watch a database content, I used the DBeaver client. On Mac, install it as fo
    <img class="mx-auto d-block mw-100" src="{% static 'vacancy/'|add:company.logo %}" alt="">
    ```
    
-### Counting related objects
+### Counting related Objects
 
 If you need to count related objects (one-to-many relationship), for example, a number of vacancies exposed
 by a company, use the ``related_name`` property as in the following example (related name is 'vacancies'):

@@ -68,15 +68,15 @@ To watch a database content, I used the DBeaver client. On Mac, install it as fo
 
 ### Using Static Content
 
-0. Put all your static files to the ``<application>/static/<application>/`` folder. In this project, \<application\>
+1. Put all your static files to the ``<application>/static/<application>/`` folder. In this project, \<application\>
    is "vacancy".
-0. On top of the template, where you want to use static files, add just after ``{% extends... %}``:
+1. On top of the template, where you want to use static files, add just after ``{% extends... %}``:
 
    ```bazaar
    {% load static %}
    ```
 
-0. In the place of the template, where you want to use a static file, use the ``static`` tag as in the following
+1. In the place of the template, where you want to use a static file, use the ``static`` tag as in the following
    example:
 
    ```bazaar   
@@ -88,13 +88,13 @@ To watch a database content, I used the DBeaver client. On Mac, install it as fo
 If you need to count related objects (one-to-many relationship), for example, a number of vacancies exposed
 by a company, use the ``related_name`` property as in the following example (related name is 'vacancies'):
 
-0. In the model class definition, add the ``related_name`` parameter to the foreign key that you are going to use:
+1. In the model class definition, add the ``related_name`` parameter to the foreign key that you are going to use:
 
    ```bazaar   
    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='vacancies')
    ```
    
-0. In a template, use this property as in the following example that counts the number of vacancies published by a company:
+1. In a template, use this property as in the following example that counts the number of vacancies published by a company:
  
     ```bazaar
      <p class="card-text"><a href="#">{{ company.vacancies.count }} вакансий</a></p>

@@ -17,13 +17,15 @@ from django.contrib import admin
 from django.urls import path
 
 from vacancy import views
+from vacancy.views import CompanyDetailView, CompanyListView, SpecialityDetailView, VacancyDetailView, VacancyListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.main_view, name='main'),
-    path('vacancies/', views.vacancies_view, name='vacancies'),
-    path('vacancies/<int:vacancy_id>/', views.vacancy_view, name='vacancy'),
-    path('companies/<int:company_id>/', views.company_view, name='company'),
-    path('companies/', views.companies_view, name='companies'),
-    path('vacancies/cat/<str:speciality_code>/', views.speciality_view, name='speciality')
+    path('vacancies/', VacancyListView.as_view(), name='vacancies'),
+    path('vacancies/<int:pk>/', VacancyDetailView.as_view(), name='vacancy'),
+    path('companies/<int:pk>/', CompanyDetailView.as_view(), name='company'),
+    path('companies/', CompanyListView.as_view(), name='companies'),
+    path('vacancies/cat/<str:code>/', SpecialityDetailView.as_view(), name='speciality')
 ]
+

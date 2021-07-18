@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
+from django.views.generic import DetailView, ListView
 
-from vacancy.models import Company,  Speciality, Vacancy
+from .models import Company,  Speciality, Vacancy
 
 
 def main_view(request):
@@ -18,27 +19,13 @@ def main_view(request):
     )
 
 
-def vacancies_view(request):
-    vacancies = Vacancy.objects.all()
-    vacancies_total = len(vacancies)
-    return render(
-        request,
-        'vacancy/vacancies.html',
-        context={
-            'vacancies': vacancies,
-            'vacancies_total': vacancies_total,
-        }
-    )
+class VacancyListView(ListView):
+    model = Vacancy
+    queryset = Vacancy.objects.all()
 
 
-def vacancy_view(request, vacancy_id):
-    return render(
-        request,
-        'vacancy/vacancy.html',
-        context={
-            'vacancy': get_object_or_404(Vacancy, pk=vacancy_id)
-        }
-    )
+class VacancyDetailView(DetailView):
+    model = Vacancy
 
 
 def speciality_view(request, speciality_code):
@@ -55,27 +42,28 @@ def speciality_view(request, speciality_code):
     )
 
 
-def companies_view(request):
-    companies = Company.objects.all()
-    companies_total = len(companies)
-    return render(
-        request,
-        'vacancy/companies.html',
-        context={
-            'companies': companies,
-            'companies_total': companies_total,
-        }
-    )
+class SpecialityDetailView(DetailView):
+    model = Speciality
+    slug_field = 'code'
+    slug_url_kwarg = 'code'
+
+    def get_context_data(self, **kwargs):
+        context = super(SpecialityDetailView, self).get_context_data(**kwargs)
+        context['vacancy_list'] = Vacancy.objects.filter(speciality__id=self.object.pk)
+        return context
 
 
-def company_view(request, company_id):
-    return render(
-        request,
-        'vacancy/company.html',
-        context={
-            'company': get_object_or_404(Company, id=company_id)
-        }
-    )
+class CompanyListView(ListView):
+    model = Company
+
+
+class CompanyDetailView(DetailView):
+    model = Company
+
+    def get_context_data(self, **kwargs):
+        context = super(CompanyDetailView, self).get_context_data(**kwargs)
+        context['vacancy_list'] = Vacancy.objects.filter(company__id=self.object.pk)
+        return context
 
 
 def confirm_view(request):

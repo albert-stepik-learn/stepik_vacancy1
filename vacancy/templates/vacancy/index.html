@@ -46,7 +46,7 @@
             <img class="mx-auto d-block" src="{% static 'vacancy/specty_'|add:speciality.code|add:'.png' %}" width="80" height="80" alt="">
             <div class="card-body">
               <p class="card-text mb-2">{{ speciality.title }}</p>
-              <p class="card-text"><a href="#">{{ speciality.vacancies.count }} вакансий</a></p>
+              <p class="card-text"><a href="#">{{ speciality.vacancy_count }} вакансий</a></p>
             </div>
           </div>
         </div>
@@ -64,7 +64,7 @@
               <img class="mx-auto d-block mw-100" src="{% static 'vacancy/'|add:company.logo %}" alt="">
             </a>
             <div class="card-body">
-              <p class="card-text"><a href="#">{{ company.vacancies.count }} вакансий</a></p>
+              <p class="card-text"><a href="#">{{ company.vacancy_count }} вакансий</a></p>
             </div>
           </div>
         </div>

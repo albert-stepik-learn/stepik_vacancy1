@@ -14,8 +14,8 @@
 {% block main %}
   <main class="container mt-3">
     <section>
-      {% block h1 %}<h1 class="h1 text-center mx-auto mt-4 pt-5" style="font-size: 70px;"><strong>Все вакансии</strong></h1>{% endblock %}
-      {% block count %}<p class="text-center pt-1">{{ object_list.count }} вакансий</p>{% endblock %}
+      <h1 class="h1 text-center mx-auto mt-4 pt-5" style="font-size: 70px;"><strong>{% block h1 %}Все вакансии{% endblock %}</strong></h1>
+      <p class="text-center pt-1">{% block count %} {{ object_list.count }} вакансий{% endblock %}</p>
       <div class="row mt-5">
         <div class="col-12 col-lg-8 offset-lg-2 m-auto">
         {% for vacancy in vacancy_list %}
